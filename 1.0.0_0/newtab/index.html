@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qexdy3</title>
+  <link rel="icon" id="page-icon" href="../assets/icons/icon32.png">
+  <link rel="stylesheet" href="newtab.css">
+  <link rel="stylesheet" href="extras.css">
+  <link rel="stylesheet" href="volume.css">
+  <link rel="stylesheet" href="controls-layout.css">
+</head>
+<body>
+  <div id="wallpaper-stage" aria-hidden="true"></div>
+  <div class="backdrop"></div>
+
+  <header class="topbar">
+    <div class="top-actions">
+      <div class="actions-group actions-left">
+      <div class="wallpaper-nav">
+        <button id="wallpaper-menu-button" class="glass-button icon-button wallpaper-trigger" aria-label="Open wallpapers" aria-expanded="false" aria-controls="wallpaper-menu" data-tooltip="Wallpapers">
+          <svg class="wallpaper-trigger-icon" aria-hidden="true"><use href="#icon-image"/></svg>
+          <svg class="wallpaper-trigger-chevron" aria-hidden="true"><use href="#icon-chevron"/></svg>
+        </button>
+        <nav id="wallpaper-menu" class="dropdown glass-panel" hidden aria-label="Wallpaper menu">
+          <button data-action="library"><svg aria-hidden="true"><use href="#icon-images"/></svg><span>My Wallpapers</span></button>
+          <button data-action="import"><svg aria-hidden="true"><use href="#icon-video"/></svg><span>Import Local Video</span></button>
+          <div class="divider"></div>
+          <button data-action="explore"><svg aria-hidden="true"><use href="#icon-compass"/></svg><span>Explore More</span><svg class="external" aria-hidden="true"><use href="#icon-external"/></svg></button>
+        </nav>
+        <input id="video-picker" type="file" accept="video/mp4,video/webm,image/gif,image/jpeg,image/png" hidden multiple>
+      </div>
+      <div id="weather-slot" class="weather-slot" aria-busy="true">
+        <div id="weather-loading" class="weather-loading" aria-hidden="true"><svg width="25" height="25"><use href="#weather-partly-cloudy"/></svg><span>--°C</span></div>
+        <div id="weather" hidden aria-live="polite"><svg width="25" height="25" aria-hidden="true"><use id="weather-icon" href="#weather-clear"/></svg><span id="weather-value"></span></div>
+        <button id="weather-enable" class="weather-enable" aria-label="Enable weather" hidden><svg width="25" height="25" aria-hidden="true"><use href="#weather-partly-cloudy"/></svg><span id="weather-enable-label">Enable weather</span></button>
+      </div>
+      <button id="shuffle-button" class="glass-button icon-button" aria-label="Change wallpaper" data-tooltip="Change Wallpaper"><svg><use href="#icon-shuffle"/></svg></button>
+      </div>
+      <div class="actions-group actions-right">
+      <label class="volume-control glass-button" aria-label="Wallpaper volume"><svg aria-hidden="true"><use id="volume-icon" href="#icon-volume-off"/></svg><input id="volume-slider" type="range" min="0" max="100" step="1" value="0" aria-label="Wallpaper volume"><output id="volume-value" for="volume-slider">0%</output></label>
+      <button id="settings-button" class="glass-button icon-button" aria-label="Open settings" data-tooltip="Settings"><svg><use href="#icon-settings"/></svg></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="center-content" aria-label="New tab essentials">
+      <div id="clock-group">
+        <time id="clock">15:32</time>
+        <div id="date">Sunday, 10 May</div>
+      </div>
+      <div id="shortcuts" class="shortcuts" aria-label="Shortcuts"></div>
+    </section>
+  </main>
+
+  <div id="toast-region" class="toast-region" aria-live="polite"></div>
+
+  <dialog id="library-dialog" class="modal">
+    <div class="modal-head"><h2>My Wallpapers</h2><button class="close-button" aria-label="Close"><svg><use href="#icon-close"/></svg></button></div>
+    <div id="wallpaper-grid" class="wallpaper-grid"></div>
+    <div class="modal-footer">
+      <button class="secondary-button" data-action="explore"><svg aria-hidden="true"><use href="#icon-compass"/></svg>Browse Wallpapers</button>
+      <button class="primary-button" data-action="import"><svg aria-hidden="true"><use href="#icon-plus"/></svg>Import Wallpaper</button>
+    </div>
+  </dialog>
+
+  <dialog id="settings-dialog" class="modal settings-modal">
+    <div class="modal-head"><div><p class="eyebrow">Preferences</p><h2>Settings</h2></div><button class="close-button" aria-label="Close"><svg><use href="#icon-close"/></svg></button></div>
+    <div class="settings-content">
+      <section><h3>Wallpaper</h3><label class="field"><span><b>Change wallpaper</b><small>Choose when to shuffle your collection</small></span><select id="shuffle-mode"><option value="manual">Manually</option><option value="new-tab">Every Tab</option><option value="hourly">Every Hour</option><option value="daily">Everyday</option></select></label></section>
+      <section><h3>Playback</h3><label class="toggle-row"><span>Loop wallpaper</span><input id="setting-loop" type="checkbox" role="switch"></label><label class="toggle-row"><span>Pause when tab is hidden</span><input id="setting-pause" type="checkbox" role="switch"></label></section>
+      <section><h3>Appearance</h3><div class="toggle-grid"><label><span>Show clock</span><input id="show-clock" type="checkbox" role="switch"></label><label><span>Show date</span><input id="show-date" type="checkbox" role="switch"></label><label><span>Show weather</span><input id="show-weather" type="checkbox" role="switch"></label><label><span>Show shortcuts</span><input id="show-shortcuts" type="checkbox" role="switch"></label></div><p class="weather-disclosure">When enabled, weather sends a city inferred from your browser time zone to wttr.in. wttr.in also receives your IP address with the HTTPS request. No GPS or precise coordinates are used.</p><label class="field compact"><span>Clock format</span><select id="clock-format"><option value="24h">24 hour</option><option value="12h">12 hour</option></select></label><div class="icon-settings"><label class="secondary-button" for="icon-picker">Choose icon</label><input id="icon-picker" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden><button id="icon-reset" class="secondary-button" type="button">Reset icon</button><small id="icon-status" aria-live="polite">One icon for the tab and toolbar. Shortcut icons stay unchanged.</small></div></section>
+      <section><h3>About</h3><div class="about"><div><b>Qexdy3</b><small>Version 1.0.0</small></div><div><a href="https://www.animelivewall.com/trending/#desktop" target="_blank" rel="noreferrer">Explore more live wallpapers ↗</a><br><a href="https://animelivewall.com/privacy-policy/" target="_blank" rel="noreferrer">Privacy Policy ↗</a><br><a href="https://animelivewall.com/contact/" target="_blank" rel="noreferrer">Support ↗</a></div></div></section>
+    </div>
+  </dialog>
+
+  <dialog id="shortcut-dialog" class="small-dialog">
+    <form id="shortcut-form">
+      <div class="modal-head"><div><p class="eyebrow">Quick access</p><h2 id="shortcut-title">Add Shortcut</h2></div><button type="button" class="close-button" aria-label="Close"><svg><use href="#icon-close"/></svg></button></div>
+      <input id="shortcut-id" type="hidden"><label>Name<input id="shortcut-name" required maxlength="24" placeholder="e.g. YouTube"></label><label>URL<input id="shortcut-url" required inputmode="url" placeholder="https://youtube.com"></label><small class="weather-disclosure">For automatic icons, the site domain is sent to Google.</small>
+      <div class="shortcut-icon-settings"><button type="button" id="shortcut-icon-choose" class="secondary-button">Choose icon</button><button type="button" id="shortcut-icon-reset" class="secondary-button">Use site icon</button><input id="shortcut-icon-file" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden><input id="shortcut-icon-reset-flag" type="hidden" value="0"><small id="shortcut-icon-status" aria-live="polite">Site icon</small></div>
+      <div id="shortcut-manage" class="shortcut-manage" hidden><button type="button" class="secondary-button" data-move="left" aria-label="Move shortcut left">←</button><button type="button" class="secondary-button" data-move="right" aria-label="Move shortcut right">→</button><button type="button" class="danger-button" data-delete-shortcut>Delete</button></div>
+      <div class="dialog-actions"><button type="button" class="secondary-button" data-cancel>Cancel</button><button class="primary-button" type="submit">Save</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="confirm-dialog" class="small-dialog"><form method="dialog"><h2>Remove this wallpaper?</h2><p>This removes the wallpaper from Qexdy3. The original file on your computer will not be deleted.</p><div class="dialog-actions"><button value="cancel" class="secondary-button">Cancel</button><button value="remove" class="danger-button">Remove</button></div></form></dialog>
+
+  <svg class="svg-defs" aria-hidden="true"><defs>
+    <symbol id="icon-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m4 17 5-5 4 4 3-3 4 4"/></symbol>
+    <symbol id="icon-images" viewBox="0 0 24 24"><rect x="5" y="3" width="16" height="16" rx="2"/><path d="M3 7v12a2 2 0 0 0 2 2h12"/><path d="m7 16 4-4 3 3 2-2 3 3"/></symbol>
+    <symbol id="icon-video" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m10 9 5 3-5 3Z"/></symbol>
+    <symbol id="icon-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5Z"/></symbol>
+    <symbol id="icon-external" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-9 9"/><path d="M19 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h4"/></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+    <symbol id="icon-shuffle" viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></symbol>
+    <symbol id="icon-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4Z"/><path d="M15 9a4 4 0 0 1 0 6M18 6a8 8 0 0 1 0 12"/></symbol>
+    <symbol id="icon-volume-off" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4Z"/><path d="m16 9 5 5m0-5-5 5"/></symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6v.2h-4V21a1.7 1.7 0 0 0-1-1.6 1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H2.8v-4H3a1.7 1.7 0 0 0 1.6-1 1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6 1.7 1.7 0 0 0 10 3v-.2h4V3a1.7 1.7 0 0 0 1 1.6 1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.2v4H21a1.7 1.7 0 0 0-1.6 1Z"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></symbol>
+    <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="weather-clear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="weather-partly-cloudy" viewBox="0 0 24 24"><path d="M8 6a4 4 0 0 1 7.7 1.5M12 2v1M5.6 4.6l.7.7M18.4 4.6l-.7.7M19 10h1"/><path d="M7 18h10a4 4 0 0 0 .6-8 6 6 0 0 0-11.3 2A3 3 0 0 0 7 18Z"/></symbol>
+    <symbol id="weather-cloudy" viewBox="0 0 24 24"><path d="M6 19h11a4 4 0 0 0 .7-7.9A6 6 0 0 0 6.3 13 3 3 0 0 0 6 19Z"/></symbol>
+    <symbol id="weather-fog" viewBox="0 0 24 24"><path d="M5 15h14M3 19h14M8 11h13M7 7h10"/></symbol>
+    <symbol id="weather-rain" viewBox="0 0 24 24"><path d="M6 15h11a4 4 0 0 0 .7-7.9A6 6 0 0 0 6.3 9 3 3 0 0 0 6 15Z"/><path d="m8 18-1 2M13 18l-1 2M18 18l-1 2"/></symbol>
+    <symbol id="weather-snow" viewBox="0 0 24 24"><path d="M6 14h11a4 4 0 0 0 .7-7.9A6 6 0 0 0 6.3 8 3 3 0 0 0 6 14Z"/><path d="M8 18h.01M13 19h.01M18 18h.01"/></symbol>
+    <symbol id="weather-storm" viewBox="0 0 24 24"><path d="M6 14h11a4 4 0 0 0 .7-7.9A6 6 0 0 0 6.3 8 3 3 0 0 0 6 14Z"/><path d="m13 15-3 4h3l-1 3 4-5h-3Z"/></symbol>
+  </defs></svg>
+  <script defer src="icon-settings.js"></script>
+  <script defer src="index.js"></script>
+</body>
+</html>

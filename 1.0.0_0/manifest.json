@@ -1,0 +1,24 @@
+{
+   "chrome_url_overrides": {
+      "newtab": "newtab/index.html"
+   },
+   "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'"
+   },
+   "description": "Live wallpapers and shortcuts on every new tab.",
+   "icons": {
+      "128": "assets/icons/icon128.png",
+      "16": "assets/icons/icon16.png",
+      "32": "assets/icons/icon32.png",
+      "48": "assets/icons/icon48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAokCH0p9t5cVjxPPqEU29GpIelpnZve48Yk4IqN3ii3t/3Gnq08xYuvzx2g92i2xImR+lbajOeQsB4f1oQwwGxFnuRGBRpOdVc79nRXRnBbfEcxzx8MY60ieb8HAVO4pSzNdZ7T5sn+93H5il4fH8JYMO5cLDmoUz7AVkxqWfre7B20XJ0EZy46qJMXxek6mURS7JMABF09x2oXFViXTHRs3T6nVoa+gXcS0x+e9EhOPumoOH5QBoDTTGupBLZXkyuM3LIHnT7dRHtHG5FA0luAbF7z7bMIf3LcOy8PX67sb4rNFE+17cZ9uPYa0seCy9sSzFzt457fYtnMybHuZNjQIDAQAB",
+   "manifest_version": 3,
+   "name": "Qexdy3",
+   "action": { "default_title": "Qexdy3" },
+   "background": { "service_worker": "icon-worker.js" },
+   "optional_host_permissions": [ "https://wttr.in/*" ],
+   "permissions": [ "storage" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0.0"
+}

@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "AMOLED Pure Black",
+  "version": "1.0",
+  "theme": {
+    "colors": {
+      "frame": [0, 0, 0],
+      "frame_inactive": [0, 0, 0],
+      "toolbar": [0, 0, 0],
+      "background_tab": [0, 0, 0],
+      "background_tab_inactive": [0, 0, 0],
+      "tab_text": [255, 255, 255],
+      "tab_background_text": [190, 190, 190],
+      "bookmark_text": [255, 255, 255],
+      "toolbar_text": [255, 255, 255],
+      "toolbar_button_icon": [255, 255, 255],
+      "omnibox_background": [0, 0, 0],
+      "omnibox_text": [255, 255, 255],
+      "ntp_background": [0, 0, 0],
+      "ntp_text": [255, 255, 255]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+# Chrome-generated cache and store verification metadata
+AMOLED-Black/Cached Theme.pak
+1.0.0_0/_metadata/
+Thumbs.db
+.DS_Store
+.env
+.env.*
