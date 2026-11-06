@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Beautiful Chrome Theme — AMOLED Black",
-  "version": "1.1",
+  "version": "1.2",
   "theme": {
+    "images": {
+      "theme_tab_background": "tab-black.png",
+      "theme_tab_background_inactive": "tab-black.png",
+      "theme_tab_background_incognito": "tab-black.png",
+      "theme_tab_background_incognito_inactive": "tab-black.png"
+    },
     "colors": {
       "frame": [0, 0, 0],
       "frame_inactive": [0, 0, 0],
