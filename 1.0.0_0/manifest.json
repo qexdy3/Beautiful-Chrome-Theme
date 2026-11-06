@@ -14,11 +14,11 @@
    },
    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAokCH0p9t5cVjxPPqEU29GpIelpnZve48Yk4IqN3ii3t/3Gnq08xYuvzx2g92i2xImR+lbajOeQsB4f1oQwwGxFnuRGBRpOdVc79nRXRnBbfEcxzx8MY60ieb8HAVO4pSzNdZ7T5sn+93H5il4fH8JYMO5cLDmoUz7AVkxqWfre7B20XJ0EZy46qJMXxek6mURS7JMABF09x2oXFViXTHRs3T6nVoa+gXcS0x+e9EhOPumoOH5QBoDTTGupBLZXkyuM3LIHnT7dRHtHG5FA0luAbF7z7bMIf3LcOy8PX67sb4rNFE+17cZ9uPYa0seCy9sSzFzt457fYtnMybHuZNjQIDAQAB",
    "manifest_version": 3,
-   "name": "Qexdy3",
-   "action": { "default_title": "Qexdy3" },
+   "name": "Beautiful Chrome Theme",
+   "action": { "default_title": "Beautiful Chrome Theme" },
    "background": { "service_worker": "icon-worker.js" },
    "optional_host_permissions": [ "https://wttr.in/*" ],
    "permissions": [ "storage" ],
    "update_url": "https://clients2.google.com/service/update2/crx",
-   "version": "1.0.0"
+   "version": "1.1.0"
 }
